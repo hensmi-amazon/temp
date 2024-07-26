@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Amazon Connect HDX Integration Sample CCP</title>
+        <style>
+            @keyframes glowing {
+              0% {
+                background-color: #2ba805;
+                box-shadow: 0 0 5px #2ba805;
+              }
+              50% {
+                background-color: #49e819;
+                box-shadow: 0 0 20px #49e819;
+              }
+              100% {
+                background-color: #2ba805;
+                box-shadow: 0 0 5px #2ba805;
+              }
+            }
+
+            .glowingButton {
+              animation: glowing 1300ms infinite;
+            }
+
+            .heading-container {
+            background-color: rgb(8, 1, 37);
+            height: 80px;
+            margin: 10px;
+            z-index: 0;
+            }
+
+            .heading h1 {
+                font-size: 30px;
+                color: white;
+                padding-top: 20px;
+                padding-left: 30px;
+            }
+
+            .contact-button {
+                border-style: solid; 
+                border-color: black;
+                border-width: thin; 
+                padding: 10px; 
+                margin: 10px 60px 10px 60px
+            }
+
+            html * {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                font-size: 1em;
+            }
+          </style>
+    </head>
+
+<body>
+    <div class="heading-container" id="topDiv">
+        <div class="heading" id="myApp">
+            <h1>Amazon Connect HDX Integration Sample CCP<h1>
+        </div>
+    </div>
+    <small style="padding-left: 30px;">NOTE : Please wait for 10 - 30 seconds until the authentication pop-up appears. Ignore if already logged in.</small>
+    <div id="gridDiv" style="display: grid; grid-template-columns: 350px 500px">
+        <div id="container-div" style="display: none;">
+            <!--Amazon CCP is hiding in here-->
+        </div>
+        <div id="customCCPDiv" style="width: 350px; min-width: 300px; height: 425px; min-height: 350px;">
+            <!-- custom user experience goes here -->
+            <div id="statusDiv">
+                <div id="agentGreetingDiv" style="margin: 10px 60px 10px 60px;">
+                    <!-- say hi to the agent -->
+                </div>
+                <div id="agentStatusDiv" style="margin: 10px 60px 10px 60px;">
+                </div>
+                <div id="goAvailableDiv" style="background-color: rgb(48, 233, 10); padding: 10px; margin: 10px 140px 10px 60px">
+                    <span >Go Available</span><br />
+                </div>
+                <div id="goOfflineDiv" style="background-color: gray; padding: 10px; margin: 10px 140px 10px 60px">
+                    <span>Go Offline</span><br />
+                </div>
+            </div>
+            <div id="contactActionsDiv">
+                <div id="outboundCallDiv" style=" margin: 10px 60px 10px 60px; display: grid; grid-template-columns: 170px 60px">
+                    <input id="phoneNumber" placeholder="Enter a phone number"></input>
+                    <div id="callDiv" style="border-style: solid; border-color: black; border-width: thin; padding: 10px;">
+                        <span>Call</span><br />
+                    </div>
+                </div>
+                <div id="answerDiv" class="contact-button">
+                    <span>Answer Incoming</span><br />
+                </div>
+                <div id="hangupDiv" class="contact-button">
+                    <span>Hang-Up</span><br />
+                </div>
+                <div id="clearDiv" class="contact-button">
+                    <span>Close Contact</span><br />
+                </div>
+            </div>
+            <div id="downloadDiv" class="contact-button">
+                <span>Download CCP log</span><br />
+            </div>
+        </div>
+        <div style="padding: 40px;">
+            <div id="vdiClientStatus">
+                <p> VDI client connecting ... </p>
+            </div>
+            <div>
+                <div style="margin: 10px 0px 10px 0px;">
+                    Microphone: 
+                    <select id="audioInput" style="margin: 10px 360px 10px 0px; padding: 10px">
+                    </select>
+                </div>
+                <div style="margin: 10px 0px 10px 0px;">
+                    Speaker: 
+                    <select id="audioOutput" style="margin: 10px 360px 10px 0px; padding: 10px">
+                    </select>
+                </div>
+                <small style="padding-left: 5px;">NOTE : Selected Microphone and Speaker will be applied to next call.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <audio id="remote-audio" playsinline autoplay></audio>
+</body>
+</html>
+
+<script src="connect-streams.js"></script>
+<script src="connect-rtc.js"></script>
+<script type="module" src="./scripts/index-invisible.js"></script>
+
