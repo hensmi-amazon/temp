@@ -21,8 +21,8 @@ const MessageType = require("../common/constant");
  **************************************************
 */
 
-let certificate = fs.readFileSync("", "utf8");
-let privateKey = fs.readFileSync("", "utf8");
+let certificate = fs.readFileSync('./certificate.crt', 'utf8');
+let privateKey = fs.readFileSync('./private.key', 'utf8');
 let credentials = {key: privateKey, cert: certificate};
 
 const app = express();
