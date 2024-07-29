@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- Copyright (c) 2022 VMware, Inc.  All rights reserved. -- VMware Confidential -->
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+      <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none';">
+      <title>WebRTC Redirection Test App</title>
+   </head>
+   <body>
+      <script src="sdk/HorizonSDKforWebRTCRedir.js" > </script>
+      <h2>WebRTC Redirection Test App</h2>
+      <div style="align-content:center; white-space: nowrap">
+         <label id="agentConnectionStatus" style="color: red;">VMAgent not connceted</label>
+      </div>
+      <div id="meetingInfo" style="align-content:center; white-space: nowrap">
+         <table border="1"  align = "center" width="800">
+            <tr align="center">
+               <td width="30%">User Info</td>
+               <td width="50%">Device Info</td>
+               <td width="20%">Self View</td>
+               </tr>
+               <tr>
+               <td>
+                  Username:<input id="userName" type="text" value="alice">  <button id="login">Login</button><br>
+                  Token(optional): <input id="sessionToken" type="text" value="">
+               </td>
+               <td>
+                  <table align="left">
+                     <tr>
+                        <td><b>Audio Input:</b></td>
+                        <td colspan="2">
+                           <select id="audioInputList" style="width:400px"></select> <br>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><b>Audio Output:</b></td>
+                        <td colspan="2">
+                           <select id="audioOutputList" style="width:400px"></select> <br>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><b>Video Input:</b> </td>
+                        <td colspan="2">
+                           <select id="videoInputList" style="width:400px"></select> <br>
+                        </td>
+                     </tr>
+                  </table>
+               </td>
+               <td rowspan="2">
+                  <div id ="selfViewWrapper">
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+
+      <div id="meetingContent"  hidden="true">
+      </div>
+
+      <div align = "center">
+         <button id="getdevice">Get Devices List</button>
+         <button id="getSelfView">Get Self View</button>
+         <button id="muteMic">Mute Mic</button>
+         <button id="muteCam">Mute Camera</button>
+         <button id="shareScreen">Share Screen</button>
+      </div>
+      <div id="incomingDialog" style="text-align:center;display:none;">
+         <label>Received Incoming Call From: </label>
+         <label id="callerId"></label>
+         <button id="answerCall" style="color:green">Answer</button>
+         <button id="rejectCall" style="color:red">Reject</button>
+      </div>
+      <div id="remotePeerArea" style="align-content:center; white-space: nowrap">
+         <table border="1"  align = "center" width="900">
+            <tr align="center">
+               <td colspan="2">
+                  <label id="callingLabel" style="display: none;"></label>
+                  <input id="callee" type="text" value="">
+                  <button id="makeCall">Call</button>
+               </td>
+            </tr>
+            <tr id="remoteVideoArea" style="text-align:center;">
+               <td width="80%" rowspan="2">
+                  <div id="remoteVideoWrapper" style="align-content:center;"></div>
+               </td>
+               <td width="20%">
+                  <div id="remoteMediaStatus" style="align-content:center;display: none;">
+                     <label id="remoteAudioStatus" style="color:green;font-size:18px;">Enabled</label><br><br>
+                     <label id="remoteVideoStatus" style="color:green;font-size:18px;">Enabled</label>
+                  </div>
+               </td>
+            </tr>
+            <tr>
+               <td width="20%">
+                  <div id ="miniRemoteVideoWrapper">
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+
+      <script type="module" src="app/appMain.js"></script>
+      <script src="common/constant.js"> </script>
+   </body>
+</html>
