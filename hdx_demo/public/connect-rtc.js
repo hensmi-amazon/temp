@@ -14425,7 +14425,7 @@
     
     var CHROME_SUPPORTED_VERSION = 59;
     
-    localStorage.setItem('horizonWSSPort', '50024');
+    localStorage.setItem('horizonWSSPort', '50032');
     localStorage.setItem('horizonClientID', 'AgAAAE5lolo5PsRHhKkd5112WB4=');
     localStorage.setItem('windowReference', '1770106');
     
