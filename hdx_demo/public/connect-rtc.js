@@ -14427,7 +14427,7 @@
     
     localStorage.setItem('horizonWSSPort', '50032');
     localStorage.setItem('horizonClientID', 'AgAAAE5lolo5PsRHhKkd5112WB4=');
-    localStorage.setItem('windowReference', '1770106');
+    localStorage.setItem('windowReference', '1603a40000000000');
     
     // A promise that resolves to the Horizon View client ID read from the registry during Application initialization.
     window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
@@ -14509,8 +14509,6 @@
     
             var _this = (0, _possibleConstructorReturn3.default)(this, (VMwareVDIStrategy.__proto__ || Object.getPrototypeOf(VMwareVDIStrategy)).call(this));
     
-            console.log("VMware Strategy Started!!!");
-    
             if (_HorizonSDKforWebRTCRedir2.default) {
                 console.log("Object Found" + _HorizonSDKforWebRTCRedir2.default);
                 var appLogger = {
@@ -14518,7 +14516,7 @@
                     info: console.log,
                     warn: console.warn
                 };
-                var appName = "VMware Horizon Client";
+                var appName = "Amazon Connect";
                 var eventCallback = function eventCallback(result) {
                     console.log("Result successful");
                     if (result.success) {
@@ -14542,19 +14540,35 @@
         }
     
         (0, _createClass3.default)(VMwareVDIStrategy, [{
+            key: "vmEventHandler",
+            value: function vmEventHandler(event) {
+                var eventType = event.event;
+                console.log("App Main ===> get event from WebRTCRedirSDK: " + eventType);
+                switch (eventType) {
+                    case "vdiClientConnected":
+                        // TODO
+                        break;
+                    case "vdiClientDisconnected":
+                        // TODO
+                        break;
+                    default:
+                        console.log("App Main ===> get unknow event from WebRTCRedirSDK: " + JSON.stringify(evt));
+                }
+            }
+        }, {
             key: "_isEarlyMediaConnectionSupported",
             value: function _isEarlyMediaConnectionSupported() {
                 try {
                     return this.isChromeBrowser() && this.getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION;
                 } catch (error) {
-                    console.error('Error in _isEarlyMediaConnectionSupported: ', error);
+                    console.info('Error in _isEarlyMediaConnectionSupported: ', error);
                     return false;
                 }
             }
         }, {
             key: "_createRtcPeerConnection",
             value: function _createRtcPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig) {
-                console.log("RTC Peer Connection Established");
+                console.log("_createRtcPeerConnection");
                 return this.proxy.newPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig);
             }
         }, {

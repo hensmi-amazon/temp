@@ -4,8 +4,11 @@ import session from './session.js';
 // Add the call to init() as an onload so it will only run once the page is loaded
 window.onload = (event) => {
     console.log("window.onload");
-        //checkVdiClientStatus();
-        //enumerateDevices();
+    window.navigator.mediaDevices.addEventListener('devicechange', function() {
+        console.log('Device change detected');
+        enumerateDevices();
+    });
+
     try {
         initializeCCP('container-div');
     } catch (error) {
@@ -128,7 +131,7 @@ function checkVdiClientStatus() {
 function enumerateDevices() {
     var audioInput = document.getElementById("audioInput");
     var audioOutput = document.getElementById("audioOutput");
-    window.CitrixWebRTC.enumerateDevices()
+    window.navigator.mediaDevices.enumerateDevices()
         .then( function (deviceInfos) { 
         console.log('enumerateDevices() success');
         for (let i = 0; i !== deviceInfos.length; ++i) {
