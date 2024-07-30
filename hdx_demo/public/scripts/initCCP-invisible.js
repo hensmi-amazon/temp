@@ -7,7 +7,7 @@ import subscribeToAgentEvents from './agentEvents-invisible.js';
 export default function (ccpContainerId) {
     console.debug("CDEBUG >> CCP initialization() - ccpContainerId:", ccpContainerId);
     // Connect information: Replace with your Connect Instance
-    const ccpUrl = "https://juhijadhav.my.gamma.us-west-2.nonprod.connect.aws.a2z.com/ccp-v2/softphone";
+    const ccpUrl = "https://hensmi2.my.gamma.us-west-2.nonprod.connect.aws.a2z.com/ccp-v2/softphone";
     const connectRegion = "us-west-2";
 
     //----------------Init CCP Start----------------------------
