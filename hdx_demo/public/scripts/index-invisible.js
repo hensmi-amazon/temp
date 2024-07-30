@@ -131,7 +131,7 @@ function checkVdiClientStatus() {
 function enumerateDevices() {
     var audioInput = document.getElementById("audioInput");
     var audioOutput = document.getElementById("audioOutput");
-    window.navigator.mediaDevices.enumerateDevices()
+    window.VMwareWebRtcRedirectionAPI.enumerateDevices()
         .then( function (deviceInfos) { 
         console.log('enumerateDevices() success');
         for (let i = 0; i !== deviceInfos.length; ++i) {
