@@ -14425,7 +14425,7 @@
     
     var CHROME_SUPPORTED_VERSION = 59;
     
-    localStorage.setItem('horizonWSSPort', '50576');
+    localStorage.setItem('horizonWSSPort', '50024');
     localStorage.setItem('horizonClientID', 'AgAAAE5lolo5PsRHhKkd5112WB4=');
     
     // A promise that resolves to the Horizon View client ID read from the registry during Application initialization.
