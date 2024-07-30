@@ -14427,6 +14427,7 @@
     
     localStorage.setItem('horizonWSSPort', '50024');
     localStorage.setItem('horizonClientID', 'AgAAAE5lolo5PsRHhKkd5112WB4=');
+    localStorage.setItem('windowReference', '1770106');
     
     // A promise that resolves to the Horizon View client ID read from the registry during Application initialization.
     window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
@@ -14482,9 +14483,14 @@
             while (1) {
                 switch (_context3.prev = _context3.next) {
                     case 0:
-                        console.log("Requesting Horizon WSS Port. Returning static value.");
-                        return _context3.abrupt("return", new Promise(function (resolve) {
-                            resolve('');
+                        console.log("Requesting Horizon Window Reference. Returning static value.");
+                        return _context3.abrupt("return", new Promise(function (resolve, reject) {
+                            var port = localStorage.getItem('windowReference');
+                            if (port) {
+                                resolve(port);
+                            } else {
+                                reject('windowReference not found in localStorage');
+                            }
                         }));
     
                     case 2:
