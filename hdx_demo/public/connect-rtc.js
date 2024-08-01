@@ -14425,27 +14425,25 @@
     
     var CHROME_SUPPORTED_VERSION = 59;
     
-    localStorage.setItem('horizonWSSPort', '50032');
-    localStorage.setItem('horizonClientID', 'AgAAAE5lolo5PsRHhKkd5112WB4=');
-    localStorage.setItem('windowReference', '1603a40000000000');
+    // The SDK is exported in such a way that it will not set `window.VMwareWebRtcRedirectionAPI` if
+    // it is imported via ESModule or CommonJS. So that builders can utilize the SDK (e.g. for device
+    // enumberation, we re-export it with the same name)
+    window.VMwareWebRtcRedirectionAPI = _HorizonSDKforWebRTCRedir2.default;
     
-    // A promise that resolves to the Horizon View client ID read from the registry during Application initialization.
+    var HORIZON_WSS_PORT = '50410';
+    var HORIZON_CLIENT_ID = 'BgAAAAJlFGwmIYeRC4E/nDXa0eE=';
+    var WINDOW_REFERENCE = '3404030000000000';
+    
+    // A promise that resolves to the Horizon View client ID
     window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
                     case 0:
-                        return _context.abrupt("return", new Promise(function (resolve, reject) {
-                            console.log("Requesting Horizon Client ID. Returning static value.");
-                            var clientID = localStorage.getItem('horizonClientID');
-                            if (clientID) {
-                                resolve(clientID);
-                            } else {
-                                reject('Client ID not found in localStorage');
-                            }
-                        }));
+                        console.log("Requesting Horizon Client ID. Returning static value.");
+                        return _context.abrupt("return", HORIZON_CLIENT_ID);
     
-                    case 1:
+                    case 2:
                     case "end":
                         return _context.stop();
                 }
@@ -14453,21 +14451,14 @@
         }, _callee, this);
     }));
     
-    // A promise that resolves to the Web Socket port number read from the registry during Application initialization.
+    // A promise that resolves to the Web Socket port number
     window.getHorizonWSSPort = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
         return _regenerator2.default.wrap(function _callee2$(_context2) {
             while (1) {
                 switch (_context2.prev = _context2.next) {
                     case 0:
                         console.log("Requesting Horizon WSS Port. Returning static value.");
-                        return _context2.abrupt("return", new Promise(function (resolve, reject) {
-                            var port = localStorage.getItem('horizonWSSPort');
-                            if (port) {
-                                resolve(port);
-                            } else {
-                                reject('WSS port not found in localStorage');
-                            }
-                        }));
+                        return _context2.abrupt("return", HORIZON_WSS_PORT);
     
                     case 2:
                     case "end":
@@ -14477,21 +14468,14 @@
         }, _callee2, this);
     }));
     
-    // A promise that resolves to the current Application window handle as a hexadecimal string.
+    // A promise that resolves to the current Application window handle as a hexadecimal string
     window.getWindowReference = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
         return _regenerator2.default.wrap(function _callee3$(_context3) {
             while (1) {
                 switch (_context3.prev = _context3.next) {
                     case 0:
                         console.log("Requesting Horizon Window Reference. Returning static value.");
-                        return _context3.abrupt("return", new Promise(function (resolve, reject) {
-                            var port = localStorage.getItem('windowReference');
-                            if (port) {
-                                resolve(port);
-                            } else {
-                                reject('windowReference not found in localStorage');
-                            }
-                        }));
+                        return _context3.abrupt("return", WINDOW_REFERENCE);
     
                     case 2:
                     case "end":
@@ -14509,32 +14493,40 @@
     
             var _this = (0, _possibleConstructorReturn3.default)(this, (VMwareVDIStrategy.__proto__ || Object.getPrototypeOf(VMwareVDIStrategy)).call(this));
     
-            if (_HorizonSDKforWebRTCRedir2.default) {
-                console.log("Object Found" + _HorizonSDKforWebRTCRedir2.default);
-                var appLogger = {
-                    error: console.error,
-                    info: console.log,
-                    warn: console.warn
-                };
-                var appName = "Amazon Connect";
-                var eventCallback = function eventCallback(result) {
-                    console.log("Result successful");
-                    if (result.success) {
-                        _this.proxy = _HorizonSDKforWebRTCRedir2.default;
-                        _this.proxy.overrideWebRTC();
-                        console.log('VMwareStrategy initialized');
-                    } else {
-                        throw new Error('VMware WebRTC redirection feature is NOT supported!');
-                    }
-                };
+            var prefix = "VMwareVDI";
+            var appLogger = {
+                error: function error() {
+                    var _console;
     
-                var initResult = _HorizonSDKforWebRTCRedir2.default.initSDK(appLogger, appName, eventCallback);
-                if (!initResult) {
-                    throw new Error('VMware WebRTC redirection feature is NOT supported!');
+                    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                        args[_key] = arguments[_key];
+                    }
+    
+                    return (_console = console).error.apply(_console, [prefix].concat(args));
+                },
+                info: function info() {
+                    var _console2;
+    
+                    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+                        args[_key2] = arguments[_key2];
+                    }
+    
+                    return (_console2 = console).log.apply(_console2, [prefix].concat(args));
+                },
+                warn: function warn() {
+                    var _console3;
+    
+                    for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+                        args[_key3] = arguments[_key3];
+                    }
+    
+                    return (_console3 = console).warn.apply(_console3, [prefix].concat(args));
                 }
-            } else {
-                // This will never be hit if we are bundling like for DCV
-                throw new Error('VMware WebRTC redirection feature is NOT supported!');
+            };
+            var appName = "Amazon Connect";
+            var initResult = _HorizonSDKforWebRTCRedir2.default.initSDK(appLogger, appName, _this.vmEventHandler);
+            if (!initResult) {
+                throw new Error('VMware WebRTC Redirection API failed to initialize');
             }
             return _this;
         }
@@ -14569,18 +14561,18 @@
             key: "_createRtcPeerConnection",
             value: function _createRtcPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig) {
                 console.log("_createRtcPeerConnection");
-                return this.proxy.newPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig);
+                return _HorizonSDKforWebRTCRedir2.default.newPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig);
             }
         }, {
             key: "_gUM",
             value: function _gUM(constraints) {
                 console.log("GUM");
-                return this.proxy.getUserMedia(constraints);
+                return _HorizonSDKforWebRTCRedir2.default.getUserMedia(constraints);
             }
         }, {
             key: "_createPeerConnection",
             value: function _createPeerConnection(configuration, optionalConfiguration) {
-                return this.proxy.newPeerConnection(configuration, optionalConfiguration);
+                return _HorizonSDKforWebRTCRedir2.default.newPeerConnection(configuration, optionalConfiguration);
             }
         }, {
             key: "onIceStateChange",
