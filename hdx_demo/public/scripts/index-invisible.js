@@ -145,7 +145,6 @@ function setMicrophone() {
 
 function setSpeaker() {
     var speakerDeviceId = document.getElementById("audioOutput").value;
-    session.agent.setSpeakerDevice(speakerDeviceId);
     VMwareWebRtcRedirectionAPI.setPrimarySinkId(speakerDeviceId);
     console.log("CDEBUG >> setSpeakerDevice with " + speakerDeviceId);
 }
