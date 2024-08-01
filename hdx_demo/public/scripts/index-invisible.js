@@ -139,6 +139,7 @@ function setMicrophone() {
     var microphoneDeviceId = document.getElementById("audioInput").value;
     window.audio_input = microphoneDeviceId;
     console.log("CDEBUG >> setMicrophoneDevice with " + microphoneDeviceId);
+    session.agent().setMicrophoneDevice(microphoneDeviceId)
 }
 
 // Set speaker device
