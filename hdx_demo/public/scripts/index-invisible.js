@@ -106,27 +106,6 @@ function downloadLog() {
     connect.getLog().download();
 }
 
-// Check endpoint connection status
-function checkVdiClientStatus() {
-    let message = document.getElementById('vdiClientStatus');
-    window.CitrixWebRTC.setVMEventCallback((event) => {
-        console.log("index - checkVdiClientStatus - setVMeventCallback: " + JSON.stringify(event));
-        if (event['event'] === 'vdiClientConnected') {
-            window.getCitrixWebrtcRedir = function() {
-                return 1;
-            }
-            console.log("index - checkVdiClientStatus - vdiClientConnected");
-            message.innerHTML = "VDI client connected";
-            message.style.color = "#008000";
-        } else if(event['event'] === 'vdiClientDisconnected') {
-            console.log("index - checkVdiClientStatus - vdiClientDisconnected")
-            message.innerHTML = "VDI client disconnected.<br> Disconnect reason: " + event['msg'];
-            message.style.color = "#FF0000";
-        }
-    });
-}
-
-
 // Enumerate media devices on local machine
 function enumerateDevices() {
     var audioInput = document.getElementById("audioInput");
@@ -167,16 +146,16 @@ function setMicrophone() {
 function setSpeaker() {
     var speakerDeviceId = document.getElementById("audioOutput").value;
     var remoteAudioElement = document.getElementById('remote-audio');
-    window.CitrixWebRTC.mapAudioElement(remoteAudioElement);
-    if (remoteAudioElement && typeof remoteAudioElement.setSinkId === 'function') {
-        console.info(`CDEBUG >> Trying to set speaker to device ${speakerDeviceId}`);
-        remoteAudioElement.setSinkId(speakerDeviceId).then(() => {
-            connect.core.getUpstream().sendUpstream(connect.EventType.BROADCAST, {
-                event: connect.ConfigurationEvents.SPEAKER_DEVICE_CHANGED,
-                data: { deviceId: speakerDeviceId }
-            });
-        });
-    }
+    // window.CitrixWebRTC.mapAudioElement(remoteAudioElement);
+    // if (remoteAudioElement && typeof remoteAudioElement.setSinkId === 'function') {
+    //     console.info(`CDEBUG >> Trying to set speaker to device ${speakerDeviceId}`);
+    //     remoteAudioElement.setSinkId(speakerDeviceId).then(() => {
+    //         connect.core.getUpstream().sendUpstream(connect.EventType.BROADCAST, {
+    //             event: connect.ConfigurationEvents.SPEAKER_DEVICE_CHANGED,
+    //             data: { deviceId: speakerDeviceId }
+    //         });
+    //     });
+    // }
 
     console.log("CDEBUG >> setSpeakerDevice with " + speakerDeviceId);
 }
