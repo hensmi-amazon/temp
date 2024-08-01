@@ -14430,9 +14430,9 @@
     // enumberation, we re-export it with the same name)
     window.VMwareWebRtcRedirectionAPI = _HorizonSDKforWebRTCRedir2.default;
     
-    var HORIZON_WSS_PORT = '50410';
-    var HORIZON_CLIENT_ID = 'BgAAAAJlFGwmIYeRC4E/nDXa0eE=';
-    var WINDOW_REFERENCE = '3404030000000000';
+    var HORIZON_WSS_PORT = '51053';
+    var HORIZON_CLIENT_ID = 'AgAAAE5lolo5PsRHhKkd5112WB4=';
+    var WINDOW_REFERENCE = '1e040f0000000000';
     
     // A promise that resolves to the Horizon View client ID
     window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
