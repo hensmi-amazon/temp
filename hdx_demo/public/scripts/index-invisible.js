@@ -4,7 +4,7 @@ import session from './session.js';
 // Add the call to init() as an onload so it will only run once the page is loaded
 window.onload = (event) => {
     console.log("window.onload");
-    window.navigator.mediaDevices.addEventListener('devicechange', function() {
+    window.navigator.mediaDevices.addEventListener('devicechange', function () {
         console.log('Device change detected');
         enumerateDevices();
     });
@@ -46,21 +46,19 @@ function goOffline() {
     });
 }
 
-// Initial a call
 function initiateCall() {
     var phoneNumber = document.getElementById('phoneNumber').value;
     var endpoint = connect.Endpoint.byPhoneNumber(phoneNumber);
     session.agent.connect(endpoint, {
-      queueARN: null,
-      success: function () { console.log("outbound call connected"); },
-      failure: function (err) {
-        console.log("outbound call connection failed");
-        console.log(err);
-      }
+        queueARN: null,
+        success: function () { console.log("outbound call connected"); },
+        failure: function (err) {
+            console.log("outbound call connection failed");
+            console.log(err);
+        }
     });
-  }
+}
 
-// Accept the contact
 function acceptContact() {
     console.log("Accept contact");
     session.contact.accept({
@@ -73,7 +71,7 @@ function acceptContact() {
         }
     });
 
-    
+
 }
 
 // Disconnect the current contact
@@ -109,55 +107,59 @@ function downloadLog() {
 // Enumerate media devices on local machine
 function enumerateDevices() {
     var audioInput = document.getElementById("audioInput");
+    while (audioInput.lastElementChild) {
+        audioInput.removeChild(audioInput.lastElementChild);
+    }
     var audioOutput = document.getElementById("audioOutput");
+    while (audioOutput.lastElementChild) {
+        audioOutput.removeChild(audioOutput.lastElementChild);
+    }
     window.VMwareWebRtcRedirectionAPI.enumerateDevices()
-        .then( function (deviceInfos) { 
-        console.log('enumerateDevices() success');
-        for (let i = 0; i !== deviceInfos.length; ++i) {
-            const deviceInfo = deviceInfos[i];
-            //deviceInfo.kind: audioinput | audiooutput
-            console.log('deviceId: ', deviceInfo.deviceId, ', kind: ', deviceInfo.kind, ', label: ', deviceInfo.label);
-            var option = document.createElement('option');
-            if( deviceInfo.kind === 'audioinput') { 
-                console.log('add audioinput devices');
-                option.value = deviceInfo.deviceId;
-                option.innerHTML = deviceInfo.label;
-                audioInput.add(option);
-            } else if( deviceInfo.kind === 'audiooutput') { 
-                console.log('add audioonput devices');
-                option.value = deviceInfo.deviceId;
-                option.innerHTML = deviceInfo.label;
-                audioOutput.add(option);
+        .then(function (deviceInfos) {
+            console.log('enumerateDevices() success');
+            for (let i = 0; i !== deviceInfos.length; ++i) {
+                const deviceInfo = deviceInfos[i];
+                //deviceInfo.kind: audioinput | audiooutput
+                console.log('deviceId: ', deviceInfo.deviceId, ', kind: ', deviceInfo.kind, ', label: ', deviceInfo.label);
+                var option = document.createElement('option');
+                if (deviceInfo.kind === 'audioinput') {
+                    option.value = deviceInfo.deviceId;
+                    option.innerHTML = deviceInfo.label;
+                    audioInput.add(option);
+                } else if (deviceInfo.kind === 'audiooutput') {
+                    option.value = deviceInfo.deviceId;
+                    option.innerHTML = deviceInfo.label;
+                    audioOutput.add(option);
+                }
             }
-        }
-    }).catch(function (err) {
-    console.log('enumerateDevices() failure with error: ', err); 
-    });
+        }).catch(function (err) {
+            console.log('enumerateDevices() failure with error: ', err);
+        });
 }
 
-function setMicrophone() { 
+function setMicrophone() {
     var microphoneDeviceId = document.getElementById("audioInput").value;
     window.audio_input = microphoneDeviceId;
     console.log("CDEBUG >> setMicrophoneDevice with " + microphoneDeviceId);
 }
 
-// Set speaker device
 function setSpeaker() {
     var speakerDeviceId = document.getElementById("audioOutput").value;
-    session.agent.setSpeakerDevice(speakerDeviceId)
+    session.agent.setSpeakerDevice(speakerDeviceId);
+    VMwareWebRtcRedirectionAPI.setPrimarySinkId(speakerDeviceId);
     console.log("CDEBUG >> setSpeakerDevice with " + speakerDeviceId);
 }
 
 // Event listeners for the 5 "buttons" of the Webpage
-document.getElementById ('goAvailableDiv').addEventListener("click", goAvailable, false);
-document.getElementById ('goOfflineDiv').addEventListener("click", goOffline, false);
-document.getElementById ('callDiv').addEventListener("click", initiateCall, false);
-document.getElementById ('answerDiv').addEventListener("click", acceptContact, false);
-document.getElementById ('hangupDiv').addEventListener("click", disconnectContact, false);
-document.getElementById ('clearDiv').addEventListener("click", clearContact, false);
-document.getElementById ('downloadDiv').addEventListener("click", downloadLog, false);
-document.getElementById ('audioInput').addEventListener("change", setMicrophone, false);
-document.getElementById ('audioOutput').addEventListener("change", setSpeaker, false);
+document.getElementById('goAvailableDiv').addEventListener("click", goAvailable, false);
+document.getElementById('goOfflineDiv').addEventListener("click", goOffline, false);
+document.getElementById('callDiv').addEventListener("click", initiateCall, false);
+document.getElementById('answerDiv').addEventListener("click", acceptContact, false);
+document.getElementById('hangupDiv').addEventListener("click", disconnectContact, false);
+document.getElementById('clearDiv').addEventListener("click", clearContact, false);
+document.getElementById('downloadDiv').addEventListener("click", downloadLog, false);
+document.getElementById('audioInput').addEventListener("change", setMicrophone, false);
+document.getElementById('audioOutput').addEventListener("change", setSpeaker, false);
 
 
 export function displayAgentStatus(status) {
