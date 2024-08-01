@@ -15814,14 +15814,10 @@
           connect.getLog().warn("[Audio Device Settings] Setting microphone device cancelled due to missing deviceId").sendInternalLogToServer();
           return;
         }
-        if (vdiPlatform === VDIPlatformType.AWS_WORKSPACE) {
-          connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for aws workspaces VDI").sendInternalLogToServer();
+        if (vdiPlatform === VDIPlatformType.AWS_WORKSPACE || vdiPlatform === VDIPlatformType.VMWARE) {
+          connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for ".concat(vdiPlatform, " VDI")).sendInternalLogToServer();
           return;
         }
-        // if (vdiPlatform === VDIPlatformType.VMWARE) {
-        //     connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for VMWARE VDI").sendInternalLogToServer();
-        //     return;
-        //   }
         var softphoneManager = connect.core.getSoftphoneManager();
         var CONSTRAINT = {
           audio: {
