@@ -130,6 +130,7 @@ function enumerateDevices() {
                 audioOutput.add(option);
             }
         }
+        setMicrophone();
     }).catch(function (err) {
     console.log('enumerateDevices() failure with error: ', err); 
     });
