@@ -14548,19 +14548,23 @@
                 }
             }
         }, {
+            key: "isChromeBrowser",
+            value: function isChromeBrowser() {
+                return this.proxy.clientInfo.browserDetails.browser === CHROME;
+            }
+        }, {
+            key: "getChromeBrowserVersion",
+            value: function getChromeBrowserVersion() {
+                return this.proxy.clientInfo.browserDetails.version;
+            }
+        }, {
             key: "_isEarlyMediaConnectionSupported",
             value: function _isEarlyMediaConnectionSupported() {
-                try {
-                    return this.isChromeBrowser() && this.getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION;
-                } catch (error) {
-                    console.info('Error in _isEarlyMediaConnectionSupported: ', error);
-                    return false;
-                }
+                return this.isChromeBrowser() && this.getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION;
             }
         }, {
             key: "_createRtcPeerConnection",
             value: function _createRtcPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig) {
-                console.log("_createRtcPeerConnection");
                 return _HorizonSDKforWebRTCRedir2.default.newPeerConnection(rtcPeerConnectionConfig, rtcPeerConnectionOptionalConfig);
             }
         }, {
@@ -14597,6 +14601,7 @@
         }, {
             key: "addStream",
             value: function addStream(_pc, stream) {
+                console.log("addStream TEST");
                 stream.getTracks().forEach(function (track) {
                     _pc.addTrack(track, stream);
                 });
@@ -14640,7 +14645,10 @@
                     }).join(','));
                 }
                 var stream = evt.streams[0];
-                self._remoteAudioElement = this.createMediaElement(stream);
+    
+                _HorizonSDKforWebRTCRedir2.default.onAudioCreated(_remoteAudioElement, WINDOW_REFERENCE);
+                // We never call `onAudioDisposed`, but neither does the sample
+    
                 self._remoteAudioStream = stream;
                 self._remoteAudioElement.srcObject = stream;
             }
