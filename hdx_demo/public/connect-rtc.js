@@ -14588,15 +14588,8 @@
             key: "_buildMediaConstraints",
             value: function _buildMediaConstraints(self, mediaConstraints) {
                 if (self._enableAudio) {
-                    var audioConstraints = {};
-                    if (typeof self._echoCancellation !== 'undefined') {
-                        audioConstraints.echoCancellation = !!self._echoCancellation;
-                    }
-                    if (Object.keys(audioConstraints).length > 0) {
-                        mediaConstraints.audio = audioConstraints;
-                    } else {
-                        mediaConstraints.audio = true;
-                    }
+                    // Echo cancellation is not supported by VMWare WebRTC Redirection ?
+                    mediaConstraints.audio = true;
                 } else {
                     mediaConstraints.audio = false;
                 }
@@ -14605,10 +14598,7 @@
             key: "addStream",
             value: function addStream(_pc, stream) {
                 stream.getTracks().forEach(function (track) {
-                    var transceiver = _pc.addTransceiver(track.kind, {
-                        streams: [stream]
-                    });
-                    transceiver.sender.replaceTrack(track);
+                    _pc.addTrack(track, stream);
                 });
             }
         }, {
