@@ -14423,8 +14423,6 @@
     
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
     
-    var CHROME_SUPPORTED_VERSION = 59;
-    
     // The SDK is exported in such a way that it will not set `window.VMwareWebRtcRedirectionAPI` if
     // it is imported via ESModule or CommonJS. So that builders can utilize the SDK (e.g. for device
     // enumberation, we re-export it with the same name)
@@ -14586,9 +14584,9 @@
                     // Echo cancellation is not supported by VMWare WebRTC Redirection
     
                     var audioConstraints = {};
-                    if (window.audio_input) {
-                        audioConstraints.deviceId = window.audio_input;
-                    }
+                    // if (window.audio_input) {
+                    //     audioConstraints.deviceId = window.audio_input;
+                    // }
                     if (Object.keys(audioConstraints).length > 0) {
                         mediaConstraints.audio = audioConstraints;
                     } else {
@@ -14601,7 +14599,6 @@
         }, {
             key: "addStream",
             value: function addStream(_pc, stream) {
-                console.log("addStream TEST");
                 stream.getTracks().forEach(function (track) {
                     _pc.addTrack(track, stream);
                 });
@@ -14639,7 +14636,6 @@
         }, {
             key: "_ontrack",
             value: function _ontrack(self, evt) {
-                console.log("ON TRACK");
                 if (evt.streams.length > 1) {
                     console.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' + evt.streams.map(function (stream) {
                         return stream.id;
@@ -14652,7 +14648,6 @@
     
                 self._remoteAudioStream = stream;
                 self._remoteAudioElement.srcObject = stream;
-                self._remoteAudioElement.setSinkId(window.audio_output);
             }
         }, {
             key: "getStrategyName",
