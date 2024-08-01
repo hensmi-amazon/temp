@@ -14428,7 +14428,7 @@
     // enumberation, we re-export it with the same name)
     window.VMwareWebRtcRedirectionAPI = _HorizonSDKforWebRTCRedir2.default;
     
-    var HORIZON_WSS_PORT = '55756';
+    var HORIZON_WSS_PORT = '59595';
     var HORIZON_CLIENT_ID = 'AgAAAE5lolo5PsRHhKkd5112WB4=';
     var WINDOW_REFERENCE = '1403160000000000';
     
