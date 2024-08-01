@@ -14432,7 +14432,7 @@
     
     var HORIZON_WSS_PORT = '51053';
     var HORIZON_CLIENT_ID = 'AgAAAE5lolo5PsRHhKkd5112WB4=';
-    var WINDOW_REFERENCE = '1e040f0000000000';
+    var WINDOW_REFERENCE = '1403160000000000';
     
     // A promise that resolves to the Horizon View client ID
     window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
@@ -14548,19 +14548,9 @@
                 }
             }
         }, {
-            key: "isChromeBrowser",
-            value: function isChromeBrowser() {
-                return this.proxy.clientInfo.browserDetails.browser === CHROME;
-            }
-        }, {
-            key: "getChromeBrowserVersion",
-            value: function getChromeBrowserVersion() {
-                return this.proxy.clientInfo.browserDetails.version;
-            }
-        }, {
             key: "_isEarlyMediaConnectionSupported",
             value: function _isEarlyMediaConnectionSupported() {
-                return this.isChromeBrowser() && this.getChromeBrowserVersion() >= CHROME_SUPPORTED_VERSION;
+                return false;
             }
         }, {
             key: "_createRtcPeerConnection",
@@ -14639,6 +14629,7 @@
         }, {
             key: "_ontrack",
             value: function _ontrack(self, evt) {
+                console.log("ON TRACK");
                 if (evt.streams.length > 1) {
                     console.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' + evt.streams.map(function (stream) {
                         return stream.id;
