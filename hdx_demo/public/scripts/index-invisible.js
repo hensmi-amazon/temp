@@ -139,24 +139,12 @@ function setMicrophone() {
     var microphoneDeviceId = document.getElementById("audioInput").value;
     window.audio_input = microphoneDeviceId;
     console.log("CDEBUG >> setMicrophoneDevice with " + microphoneDeviceId);
-    session.agent.setMicrophoneDevice(microphoneDeviceId)
 }
 
 // Set speaker device
 function setSpeaker() {
     var speakerDeviceId = document.getElementById("audioOutput").value;
-    var remoteAudioElement = document.getElementById('remote-audio');
-    // window.CitrixWebRTC.mapAudioElement(remoteAudioElement);
-    // if (remoteAudioElement && typeof remoteAudioElement.setSinkId === 'function') {
-    //     console.info(`CDEBUG >> Trying to set speaker to device ${speakerDeviceId}`);
-    //     remoteAudioElement.setSinkId(speakerDeviceId).then(() => {
-    //         connect.core.getUpstream().sendUpstream(connect.EventType.BROADCAST, {
-    //             event: connect.ConfigurationEvents.SPEAKER_DEVICE_CHANGED,
-    //             data: { deviceId: speakerDeviceId }
-    //         });
-    //     });
-    // }
-
+    session.agent.setSpeakerDevice(speakerDeviceId)
     console.log("CDEBUG >> setSpeakerDevice with " + speakerDeviceId);
 }
 
