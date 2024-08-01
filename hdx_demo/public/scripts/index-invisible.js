@@ -135,7 +135,6 @@ function enumerateDevices() {
     });
 }
 
-// Set microphone device
 function setMicrophone() { 
     var microphoneDeviceId = document.getElementById("audioInput").value;
     window.audio_input = microphoneDeviceId;

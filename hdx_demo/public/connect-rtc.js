@@ -14582,8 +14582,17 @@
             key: "_buildMediaConstraints",
             value: function _buildMediaConstraints(self, mediaConstraints) {
                 if (self._enableAudio) {
-                    // Echo cancellation is not supported by VMWare WebRTC Redirection ?
-                    mediaConstraints.audio = true;
+                    // Echo cancellation is not supported by VMWare WebRTC Redirection
+    
+                    var audioConstraints = {};
+                    if (window.audio_input) {
+                        audioConstraints.deviceId = window.audio_input;
+                    }
+                    if (Object.keys(audioConstraints).length > 0) {
+                        mediaConstraints.audio = audioConstraints;
+                    } else {
+                        mediaConstraints.audio = true;
+                    }
                 } else {
                     mediaConstraints.audio = false;
                 }
