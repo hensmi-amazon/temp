@@ -15818,10 +15818,10 @@
           connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for aws workspaces VDI").sendInternalLogToServer();
           return;
         }
-        if (vdiPlatform === VDIPlatformType.VMWARE) {
-          connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for VMWARE VDI").sendInternalLogToServer();
-          return;
-        }
+        // if (vdiPlatform === VDIPlatformType.VMWARE) {
+        //     connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for VMWARE VDI").sendInternalLogToServer();
+        //     return;
+        //   }
         var softphoneManager = connect.core.getSoftphoneManager();
         var CONSTRAINT = {
           audio: {
