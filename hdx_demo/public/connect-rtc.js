@@ -14430,7 +14430,7 @@
     // enumberation, we re-export it with the same name)
     window.VMwareWebRtcRedirectionAPI = _HorizonSDKforWebRTCRedir2.default;
     
-    var HORIZON_WSS_PORT = '51053';
+    var HORIZON_WSS_PORT = '55756';
     var HORIZON_CLIENT_ID = 'AgAAAE5lolo5PsRHhKkd5112WB4=';
     var WINDOW_REFERENCE = '1403160000000000';
     
@@ -14550,6 +14550,7 @@
         }, {
             key: "_isEarlyMediaConnectionSupported",
             value: function _isEarlyMediaConnectionSupported() {
+                // VMware WebRTC Redirection does not support early media connection
                 return false;
             }
         }, {
@@ -14651,6 +14652,7 @@
     
                 self._remoteAudioStream = stream;
                 self._remoteAudioElement.srcObject = stream;
+                self._remoteAudioElement.setSinkId(window.audio_output);
             }
         }, {
             key: "getStrategyName",
