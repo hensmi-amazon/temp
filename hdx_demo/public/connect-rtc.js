@@ -14637,7 +14637,7 @@
                 }
                 var stream = evt.streams[0];
     
-                _HorizonSDKforWebRTCRedir2.default.onAudioCreated(_remoteAudioElement, WINDOW_REFERENCE);
+                _HorizonSDKforWebRTCRedir2.default.onAudioCreated(self._remoteAudioStream, WINDOW_REFERENCE);
                 // We never call `onAudioDisposed`, but neither does the sample
     
                 self._remoteAudioStream = stream;
