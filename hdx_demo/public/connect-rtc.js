@@ -14428,9 +14428,9 @@
     // enumberation, we re-export it with the same name)
     window.VMwareWebRtcRedirectionAPI = _HorizonSDKforWebRTCRedir2.default;
     
-    var HORIZON_WSS_PORT = '59595';
+    var HORIZON_WSS_PORT = '50219';
     var HORIZON_CLIENT_ID = 'AgAAAE5lolo5PsRHhKkd5112WB4=';
-    var WINDOW_REFERENCE = '1403160000000000';
+    var WINDOW_REFERENCE = 'ee03020000000000';
     
     // A promise that resolves to the Horizon View client ID
     window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
@@ -14584,9 +14584,10 @@
                     // Echo cancellation is not supported by VMWare WebRTC Redirection
     
                     var audioConstraints = {};
-                    // if (window.audio_input) {
-                    //     audioConstraints.deviceId = window.audio_input;
-                    // }
+                    if (window.audio_input) {
+                        // This isn't ideal and isn't documented but it matches the logic in CitrixVDI stategy
+                        audioConstraints.deviceId = window.audio_input;
+                    }
                     if (Object.keys(audioConstraints).length > 0) {
                         mediaConstraints.audio = audioConstraints;
                     } else {
