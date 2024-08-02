@@ -139,6 +139,22 @@ function enumerateDevices() {
 function setMicrophone() {
     var microphoneDeviceId = document.getElementById("audioInput").value;
     window.audio_input = microphoneDeviceId;
+
+    var mediaConstraints = {};
+    var audioConstraints = {};
+    if (window.audio_input) {
+        audioConstraints.deviceId = microphoneDeviceId;
+    }
+    if (Object.keys(audioConstraints).length > 0) {
+        mediaConstraints.audio = audioConstraints;
+    } else {
+        mediaConstraints.audio = true;
+    }
+
+    VMwareWebRtcRedirectionAPI.getUserMedia(constraints)
+        .then(stream => {
+            console.log(`we have a stream ${stream}`)
+        })
     console.log("CDEBUG >> setMicrophoneDevice with " + microphoneDeviceId);
 }
 
