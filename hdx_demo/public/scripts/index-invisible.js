@@ -138,16 +138,12 @@ function enumerateDevices() {
 
 function setMicrophone() {
     var microphoneDeviceId = document.getElementById("audioInput").value;
-    window.audio_input = microphoneDeviceId;
-
-    VMwareWebRtcRedirectionAPI.getUserMedia({
-        audio: {
-            deviceId: microphoneDeviceId
-        }
-    }).then(stream => {
-            console.log(`we have a stream ${stream}`)
-        })
     console.log("CDEBUG >> setMicrophoneDevice with " + microphoneDeviceId);
+    // We cannot call agent.setSpeakerDevice because it circumvents the VDI strategy classes.
+    // However there is no easy way to access the peer connection or replace tracks (given
+    // the local media stream tracks are copied to the Peer Connection via addTrack), so all
+    // we have is this hacky global which will only change the mic upon a new call
+    window.audio_input = microphoneDeviceId;
 }
 
 function setSpeaker() {
@@ -163,15 +159,15 @@ function setSpeaker() {
             console.log(`Speaker device ${newSpeakerDeviceId} successfully set to speaker audio element`);
             // Mimick setSpeakerDevice behavior and send event
             connect.core.getUpstream().sendUpstream(connect.EventType.BROADCAST, {
-            event: connect.ConfigurationEvents.SPEAKER_DEVICE_CHANGED,
-            data: { deviceId: newSpeakerDeviceId }
+                event: connect.ConfigurationEvents.SPEAKER_DEVICE_CHANGED,
+                data: { deviceId: newSpeakerDeviceId }
             });
-      }).catch((e) => {
-        console.error(`Failed to set speaker device ${newSpeakerDeviceId}: ${e}`)
-      });
+        }).catch((e) => {
+            console.error(`Failed to set speaker device ${newSpeakerDeviceId}: ${e}`)
+        });
     } else {
         cconsole.warn("Setting speaker device cancelled because we could not find an element with ID 'remote-audio");
-      }
+    }
 }
 
 // Event listeners for the 5 "buttons" of the Webpage
