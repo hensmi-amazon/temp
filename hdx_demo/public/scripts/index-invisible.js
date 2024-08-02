@@ -143,23 +143,23 @@ function setMicrophone() {
 }
 
 function setSpeaker() {
-    var speakerDeviceId = document.getElementById("audioOutput").value;
-    console.log("CDEBUG >> setSpeakerDevice with " + speakerDeviceId);
+    var newSpeakerDeviceId = document.getElementById("audioOutput").value;
+    console.log("CDEBUG >> setSpeakerDevice with " + newSpeakerDeviceId);
     // We cannot call agent.setSpeakerDevice because it accesses the remote audio element through
     // lookup and thus will not have the setSinkId API overriden
     var remoteAudioElement = document.getElementById('remote-audio') || window.parent.parent.document.getElementById('remote-audio');
     if (remoteAudioElement && typeof remoteAudioElement.setSinkId === 'function') {
         VMwareWebRtcRedirectionAPI.onAudioCreated(remoteAudioElement, window.WINDOW_REFERENCE);
 
-        remoteAudioElement.setSinkId(deviceId).then(() => {
-            console.log(`Speaker device ${deviceId} successfully set to speaker audio element`);
+        remoteAudioElement.setSinkId(newSpeakerDeviceId).then(() => {
+            console.log(`Speaker device ${newSpeakerDeviceId} successfully set to speaker audio element`);
             // Mimick setSpeakerDevice behavior and send event
             connect.core.getUpstream().sendUpstream(connect.EventType.BROADCAST, {
             event: connect.ConfigurationEvents.SPEAKER_DEVICE_CHANGED,
-            data: { deviceId: deviceId }
+            data: { deviceId: newSpeakerDeviceId }
             });
       }).catch((e) => {
-        console.error(`Failed to set speaker device ${deviceId}: ${e}`)
+        console.error(`Failed to set speaker device ${newSpeakerDeviceId}: ${e}`)
       });
     } else {
         cconsole.warn("Setting speaker device cancelled because we could not find an element with ID 'remote-audio");
