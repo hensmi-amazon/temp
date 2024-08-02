@@ -15785,6 +15785,10 @@
           connect.getLog().warn("[Audio Device Settings] Setting speaker device cancelled due to missing deviceId").sendInternalLogToServer();
           return;
         }
+        if (vdiPlatform === VDIPlatformType.AWS_WORKSPACE || vdiPlatform === VDIPlatformType.VMWARE) {
+          connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for ".concat(vdiPlatform, " VDI")).sendInternalLogToServer();
+          return;
+        }
         var remoteAudioElement = document.getElementById('remote-audio') || window.parent.parent.document.getElementById('remote-audio');
         if (remoteAudioElement && typeof remoteAudioElement.setSinkId === 'function') {
           remoteAudioElement.setSinkId(deviceId).then(function () {
