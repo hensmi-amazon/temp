@@ -149,7 +149,7 @@ function setSpeaker() {
     // lookup and thus will not have the setSinkId API overriden
     var remoteAudioElement = document.getElementById('remote-audio') || window.parent.parent.document.getElementById('remote-audio');
     if (remoteAudioElement && typeof remoteAudioElement.setSinkId === 'function') {
-        VMwareWebRtcRedirectionAPI.onAudioCreated(self._remoteAudioElement, window.WINDOW_REFERENCE);
+        VMwareWebRtcRedirectionAPI.onAudioCreated(remoteAudioElement, window.WINDOW_REFERENCE);
 
         remoteAudioElement.setSinkId(deviceId).then(() => {
             console.log(`Speaker device ${deviceId} successfully set to speaker audio element`);
