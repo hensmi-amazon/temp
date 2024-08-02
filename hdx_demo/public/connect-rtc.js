@@ -14428,9 +14428,9 @@
     // enumberation, we re-export it with the same name)
     window.VMwareWebRtcRedirectionAPI = _HorizonSDKforWebRTCRedir2.default;
     
-    window.HORIZON_WSS_PORT = '50219';
+    window.HORIZON_WSS_PORT = '49964';
     window.HORIZON_CLIENT_ID = 'AgAAAE5lolo5PsRHhKkd5112WB4=';
-    window.WINDOW_REFERENCE = 'ee03020000000000';
+    window.WINDOW_REFERENCE = '9604010000000000';
     
     // A promise that resolves to the Horizon View client ID
     window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
@@ -14559,7 +14559,6 @@
         }, {
             key: "_gUM",
             value: function _gUM(constraints) {
-                console.log("GUM");
                 return _HorizonSDKforWebRTCRedir2.default.getUserMedia(constraints);
             }
         }, {
@@ -14636,13 +14635,13 @@
             }
         }, {
             key: "_ontrack",
-            value: function _ontrack(self, evt) {
-                if (evt.streams.length > 1) {
-                    console.warn('Found more than 1 streams for ' + evt.track.kind + ' track ' + evt.track.id + ' : ' + evt.streams.map(function (stream) {
+            value: function _ontrack(self, event) {
+                if (event.streams.length > 1) {
+                    console.warn("Found more than 1 streams for " + event.track.kind + " track " + event.track.id + " : " + event.streams.map(function (stream) {
                         return stream.id;
                     }).join(','));
                 }
-                var stream = evt.streams[0];
+                var stream = event.streams[0];
     
                 // The following will overwrite the 'setSinkId' function on the element so it can
                 // be routed to the proxy. This means that parts of the code that access the element
