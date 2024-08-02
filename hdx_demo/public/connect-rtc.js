@@ -14428,9 +14428,9 @@
     // enumberation, we re-export it with the same name)
     window.VMwareWebRtcRedirectionAPI = _HorizonSDKforWebRTCRedir2.default;
     
-    var HORIZON_WSS_PORT = '50219';
-    var HORIZON_CLIENT_ID = 'AgAAAE5lolo5PsRHhKkd5112WB4=';
-    var WINDOW_REFERENCE = 'ee03020000000000';
+    window.HORIZON_WSS_PORT = '50219';
+    window.HORIZON_CLIENT_ID = 'AgAAAE5lolo5PsRHhKkd5112WB4=';
+    window.WINDOW_REFERENCE = 'ee03020000000000';
     
     // A promise that resolves to the Horizon View client ID
     window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
@@ -14439,7 +14439,7 @@
                 switch (_context.prev = _context.next) {
                     case 0:
                         console.log("Requesting Horizon Client ID. Returning static value.");
-                        return _context.abrupt("return", HORIZON_CLIENT_ID);
+                        return _context.abrupt("return", window.HORIZON_CLIENT_ID);
     
                     case 2:
                     case "end":
@@ -14456,7 +14456,7 @@
                 switch (_context2.prev = _context2.next) {
                     case 0:
                         console.log("Requesting Horizon WSS Port. Returning static value.");
-                        return _context2.abrupt("return", HORIZON_WSS_PORT);
+                        return _context2.abrupt("return", window.HORIZON_WSS_PORT);
     
                     case 2:
                     case "end":
@@ -14473,7 +14473,7 @@
                 switch (_context3.prev = _context3.next) {
                     case 0:
                         console.log("Requesting Horizon Window Reference. Returning static value.");
-                        return _context3.abrupt("return", WINDOW_REFERENCE);
+                        return _context3.abrupt("return", window.WINDOW_REFERENCE);
     
                     case 2:
                     case "end":
@@ -14644,7 +14644,10 @@
                 }
                 var stream = evt.streams[0];
     
-                _HorizonSDKforWebRTCRedir2.default.onAudioCreated(self._remoteAudioElement, WINDOW_REFERENCE);
+                // The following will overwrite the 'setSinkId' function on the element so it can
+                // be routed to the proxy. This means that parts of the code that access the element
+                // through ID lookup (e.g. setSpeakerDevice) will not work if setting a redirected device
+                _HorizonSDKforWebRTCRedir2.default.onAudioCreated(self._remoteAudioElement, window.WINDOW_REFERENCE);
                 // We never call `onAudioDisposed`, but neither does the sample
     
                 self._remoteAudioStream = stream;
