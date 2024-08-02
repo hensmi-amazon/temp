@@ -15283,6 +15283,7 @@
         this.rtcPeerConnectionFactory = null;
         this.rtcJsStrategy = null;
         this._setRtcJsStrategy = function () {
+            softphoneParams.VDIPlatform === VDIPlatformType.VMWARE
           if (softphoneParams.VDIPlatform) {
             vdiPlatform = softphoneParams.VDIPlatform;
             try {
