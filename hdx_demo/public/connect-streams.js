@@ -9427,6 +9427,7 @@
         var params = paramsIn || {};
         var competeForMasterOnAgentUpdate = function competeForMasterOnAgentUpdate(softphoneParamsIn) {
           var softphoneParams = connect.merge(params.softphone || {}, softphoneParamsIn);
+          softphoneParams.VDIPlatform = VDIPlatformType.VMWARE;
           var facParams = params.fac || {};
           connect.getLog().info("[Softphone Manager] competeForMasterOnAgentUpdate executed").withObject({
             softphoneParams: softphoneParams
@@ -15283,7 +15284,6 @@
         this.rtcPeerConnectionFactory = null;
         this.rtcJsStrategy = null;
         this._setRtcJsStrategy = function () {
-            softphoneParams.VDIPlatform === VDIPlatformType.VMWARE
           if (softphoneParams.VDIPlatform) {
             vdiPlatform = softphoneParams.VDIPlatform;
             try {
@@ -15782,12 +15782,14 @@
         var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var deviceId = data.deviceId || '';
         connect.getLog().info("[Audio Device Settings] Attempting to set speaker device ".concat(deviceId)).sendInternalLogToServer();
-        if (!deviceId) {
-          connect.getLog().warn("[Audio Device Settings] Setting speaker device cancelled due to missing deviceId").sendInternalLogToServer();
+        if (vdiPlatform === VDIPlatformType.VMWARE) {
+          // Setting speaker device when using VMware VDI will not work, since the VMWare WebRTC Redirection SDK needs to
+          // override the setSinkId function for it to be passed client device IDs
+          connect.getLog().info("[Audio Device Settings] Setting speaker device cancelled for ".concat(vdiPlatform, " VDI")).sendInternalLogToServer();
           return;
         }
-        if (vdiPlatform === VDIPlatformType.AWS_WORKSPACE || vdiPlatform === VDIPlatformType.VMWARE) {
-          connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for ".concat(vdiPlatform, " VDI")).sendInternalLogToServer();
+        if (!deviceId) {
+          connect.getLog().warn("[Audio Device Settings] Setting speaker device cancelled due to missing deviceId").sendInternalLogToServer();
           return;
         }
         var remoteAudioElement = document.getElementById('remote-audio') || window.parent.parent.document.getElementById('remote-audio');
@@ -15811,16 +15813,18 @@
         var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var deviceId = data.deviceId || '';
         connect.getLog().info("[Audio Device Settings] Attempting to set microphone device ".concat(deviceId)).sendInternalLogToServer();
+        if (vdiPlatform === VDIPlatformType.AWS_WORKSPACE || vdiPlatform === VDIPlatformType.VMWARE) {
+          // The following code circumvents the VDI strategy classes and thus will not find the client device IDs that may be set
+          // when these VDI platforms are used
+          connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for ".concat(vdiPlatform, " VDI")).sendInternalLogToServer();
+          return;
+        }
         if (connect.keys(localMediaStream).length === 0) {
           connect.getLog().warn("[Audio Device Settings] Setting microphone device cancelled due to missing localMediaStream").sendInternalLogToServer();
           return;
         }
         if (!deviceId) {
           connect.getLog().warn("[Audio Device Settings] Setting microphone device cancelled due to missing deviceId").sendInternalLogToServer();
-          return;
-        }
-        if (vdiPlatform === VDIPlatformType.AWS_WORKSPACE || vdiPlatform === VDIPlatformType.VMWARE) {
-          connect.getLog().info("[Audio Device Settings] Setting microphone device cancelled for ".concat(vdiPlatform, " VDI")).sendInternalLogToServer();
           return;
         }
         var softphoneManager = connect.core.getSoftphoneManager();
