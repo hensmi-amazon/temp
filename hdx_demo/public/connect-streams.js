@@ -9427,7 +9427,7 @@
         var params = paramsIn || {};
         var competeForMasterOnAgentUpdate = function competeForMasterOnAgentUpdate(softphoneParamsIn) {
           var softphoneParams = connect.merge(params.softphone || {}, softphoneParamsIn);
-          softphoneParams.VDIPlatform = VDIPlatformType.VMWARE;
+          softphoneParams.VDIPlatform = 'VMWARE';
           var facParams = params.fac || {};
           connect.getLog().info("[Softphone Manager] competeForMasterOnAgentUpdate executed").withObject({
             softphoneParams: softphoneParams
