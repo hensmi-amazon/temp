@@ -14428,9 +14428,9 @@
     // enumberation, we re-export it with the same name)
     window.VMwareWebRtcRedirectionAPI = _HorizonSDKforWebRTCRedir2.default;
     
-    window.HORIZON_WSS_PORT = '49950';
-    window.HORIZON_CLIENT_ID = 'AgAAAE5lolo5PsRHhKkd5112WB4=';
-    window.WINDOW_REFERENCE = '0e03020000000000';
+    window.HORIZON_WSS_PORT = '50924';
+    window.HORIZON_CLIENT_ID = 'BgAAAAJlFGwmIYeRC4E/nDXa0eE=';
+    window.WINDOW_REFERENCE = 'ca01040000000000';
     
     // A promise that resolves to the Horizon View client ID
     window.getHorizonClientID = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
@@ -14533,17 +14533,7 @@
             key: "vmEventHandler",
             value: function vmEventHandler(event) {
                 var eventType = event.event;
-                console.log("App Main ===> get event from WebRTCRedirSDK: " + eventType);
-                switch (eventType) {
-                    case "vdiClientConnected":
-                        // TODO
-                        break;
-                    case "vdiClientDisconnected":
-                        // TODO
-                        break;
-                    default:
-                        console.log("App Main ===> get unknow event from WebRTCRedirSDK: " + JSON.stringify(evt));
-                }
+                console.log("Got event from VMwareWebRtcRedirectionAPI: " + eventType);
             }
         }, {
             key: "_isEarlyMediaConnectionSupported",
